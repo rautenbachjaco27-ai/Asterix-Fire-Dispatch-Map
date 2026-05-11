@@ -11,7 +11,7 @@
 <body>
     <div id="panel">
         <h2 style="color:#d32f2f;margin:0;">ASTERIX DISPATCH</h2>
-        <input id="search" type="text" placeholder="Enter Scene..." style="width:250px;padding:10px;margin-top:10px;">
+        <input id="search" type="text" placeholder="Enter Scene Address..." style="width:250px;padding:10px;margin-top:10px;">
     </div>
     <div id="map"></div>
     <script>
@@ -25,6 +25,7 @@
             const autocomplete = new google.maps.places.Autocomplete(document.getElementById("search"));
             autocomplete.addListener("place_changed", () => {
                 const place = autocomplete.getPlace();
+                if (!place.geometry) return;
                 map.setCenter(place.geometry.location);
                 map.setZoom(17);
                 new google.maps.Marker({ position: place.geometry.location, map: map, animation: google.maps.Animation.BOUNCE });
